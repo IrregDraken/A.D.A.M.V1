@@ -19,9 +19,9 @@ OWNER_CHAT_ID = str(os.getenv("CHAT_ID"))
 BASE_URL = f"https://api.telegram.org/bot{BOT_TOKEN}"
 
 
-# =========================
+# ============================================
 # TELEGRAM UI HELPERS
-# =========================
+# ============================================
 
 def send_message_with_keyboard(chat_id, text, keyboard):
 
@@ -46,9 +46,9 @@ def send_message_with_keyboard(chat_id, text, keyboard):
     return response.json()
 
 
-# =========================
+# ============================================
 # TELEGRAM UPDATE SYSTEM
-# =========================
+# ============================================
 
 def get_updates(offset=None):
 
@@ -72,9 +72,9 @@ def get_updates(offset=None):
     return response.json()
 
 
-# =========================
+# ============================================
 # DATABASE HELPERS
-# =========================
+# ============================================
 
 def get_recent_events(limit=5):
 
@@ -142,9 +142,9 @@ def get_status_summary():
     return total_events, total_alerts, pending_alerts
 
 
-# =========================
+# ============================================
 # ALERT HELPERS
-# =========================
+# ============================================
 
 def extract_alert_id(message_text):
 
@@ -283,9 +283,9 @@ def update_alert_status(alert_id, action):
     }
 
 
-# =========================
+# ============================================
 # CONTROL PANEL
-# =========================
+# ============================================
 
 def get_home_keyboard():
 
@@ -375,9 +375,9 @@ def send_control_panel(chat_id):
     )
 
 
-# =========================
+# ============================================
 # COMMAND HANDLER
-# =========================
+# ============================================
 
 def handle_command(chat_id, text):
 
@@ -393,9 +393,9 @@ def handle_command(chat_id, text):
         send_control_panel(chat_id)
 
 
-# =========================
+# ============================================
 # BOT RUNTIME
-# =========================
+# ============================================
 
 def run_bot():
 
@@ -417,9 +417,9 @@ def run_bot():
                         item["update_id"] + 1
                     )
 
-                    # =========================
+                    # ============================================
                     # CALLBACK BUTTONS
-                    # =========================
+                    # ============================================
 
                     if "callback_query" in item:
 
@@ -447,9 +447,9 @@ def run_bot():
 
                             continue
 
-                        # =========================
+                        # ============================================
                         # HOME
-                        # =========================
+                        # ============================================
 
                         if action == "home":
 
@@ -475,9 +475,9 @@ def run_bot():
 
                             continue
 
-                        # =========================
+                        # ============================================
                         # DASHBOARD
-                        # =========================
+                        # ============================================
 
                         elif action == "dashboard":
 
@@ -506,9 +506,9 @@ def run_bot():
 
                             continue
 
-                        # =========================
+                        # ============================================
                         # ALERTS
-                        # =========================
+                        # ============================================
 
                         elif action == "alerts":
 
@@ -551,9 +551,9 @@ def run_bot():
 
                             continue
 
-                        # =========================
+                        # ============================================
                         # DEVICES
-                        # =========================
+                        # ============================================
 
                         elif action == "devices":
 
@@ -577,9 +577,9 @@ def run_bot():
 
                             continue
 
-                        # =========================
+                        # ============================================
                         # INTELLIGENCE
-                        # =========================
+                        # ============================================
 
                         elif action == "intelligence":
 
@@ -605,9 +605,9 @@ def run_bot():
 
                             continue
 
-                        # =========================
+                        # ============================================
                         # CONTROLS
-                        # =========================
+                        # ============================================
 
                         elif action == "controls":
 
@@ -631,79 +631,9 @@ def run_bot():
 
                             continue
 
-                        # =========================
-                        # ALERT ACTIONS
-                        # =========================
-
-                        alert_id = extract_alert_id(
-                            message_text
-                        )
-
-                        result = None
-
-                        if alert_id is not None:
-
-                            result = update_alert_status(
-                                alert_id,
-                                action
-                            )
-
-                        if result:
-
-                            if result["new_status"] in [
-                                "resolved",
-                                "overridden"
-                            ]:
-                                button_mode = "override"
-
-                            elif result["new_status"] == "closed":
-                                button_mode = "none"
-
-                            else:
-                                button_mode = "pending"
-
-                            extra_line = None
-
-                            if result["new_status"] == "closed":
-
-                                extra_line = (
-                                    "🟢 Incident closed."
-                                )
-
-                            new_text = format_alert_card(
-                                alert_id=result["alert_id"],
-                                reason=result["reason"],
-                                status=result["new_status"].upper(),
-                                action=normalize_action(
-                                    result["new_action"]
-                                ),
-                                risk="HIGH",
-                                extra_line=extra_line
-                            )
-
-                            try:
-
-                                edit_telegram_message_with_buttons(
-                                    result["telegram_message_id"],
-                                    new_text,
-                                    button_mode=button_mode
-                                )
-
-                            except Exception as e:
-
-                                print(
-                                    "Edit message error:",
-                                    e
-                                )
-
-                            answer_callback_query(
-                                callback_id,
-                                f"{normalize_action(result['new_action'])} applied"
-                            )
-
-                    # =========================
+                    # ============================================
                     # COMMAND HANDLING
-                    # =========================
+                    # ============================================
 
                     elif "message" in item:
 
