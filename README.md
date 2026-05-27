@@ -8,9 +8,9 @@
 
 ## Overview
 
-A.D.A.M (Autonomous Directive and Arbitration Machine) is an AI-powered assistant framework designed to automate interactions, manage intelligent responses, and evolve through a modular backend architecture.
+A.D.A.M (Autonomous Directive and Arbitration Machine) is an experimental AI assistant framework designed to automate interactions, manage intelligent responses, and evolve through a modular backend architecture.
 
-The project focuses on creating a scalable AI ecosystem capable of adaptive behavior, automation workflows, and future memory-driven systems.
+The project explores scalable AI systems focused on adaptive behavior, automation workflows, memory-driven interaction, and future human-AI integration.
 
 ---
 
@@ -27,7 +27,9 @@ The project focuses on creating a scalable AI ecosystem capable of adaptive beha
 ---
 
 ## System Architecture
-![System architecture](assets/architecture.png)
+
+![System Architecture](assets/architecture.png)
+
 ```plaintext
 User
  │
@@ -63,6 +65,12 @@ adam_project/
 │
 ├── data/
 │   └── adam.db
+│
+├── assets/
+│   ├── banner.png
+│   ├── architecture.png
+│   ├── backend.png
+│   └── telegram.png
 │
 └── README.md
 ```
@@ -104,28 +112,16 @@ python adam_project/backend/app.py
 ## Tech Stack
 
 * Python
-* Flask / FastAPI
+* Flask
 * SQLite
 * Telegram Bot API
-* Render Deployment
-
----
-
-## Future Goals
-
-* Conversational intelligence expansion
-* Persistent memory systems
-* Adaptive personality modules
-* AI-assisted automation workflows
-* Web dashboard integration
-* Device & gateway integration
-* Scalable cloud infrastructure
+* Render
 
 ---
 
 ## Screenshots
 
-### Terminal / Backend
+### Backend Runtime
 
 ![Backend Preview](assets/backend.png)
 
@@ -135,9 +131,21 @@ python adam_project/backend/app.py
 
 ---
 
+## Future Goals
+
+* Persistent memory systems
+* Adaptive personality modules
+* AI-assisted automation workflows
+* Web dashboard integration
+* Device and gateway connectivity
+* Scalable cloud infrastructure
+* Advanced conversational intelligence
+
+---
+
 ## Vision
 
-A.D.A.M represents the foundation of a larger evolving AI ecosystem focused on adaptive systems, intelligent automation, and future-facing human-AI interaction.
+A.D.A.M represents the foundation of a larger evolving AI ecosystem focused on intelligent automation, adaptive systems, and future-facing human-AI interaction.
 
 This project is being developed publicly as an evolving experimental architecture.
 
