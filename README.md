@@ -1,6 +1,6 @@
 # A.D.A.M V1
 
-![A.D.A.M Banner](assets/adam-banner.png)
+![A.D.A.M Banner](assets/banner.png)
 
 > Experimental AI system exploring adaptive interaction, automation, memory systems, and modular intelligence architecture.
 
