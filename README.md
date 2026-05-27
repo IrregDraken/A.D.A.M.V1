@@ -35,7 +35,7 @@ A.D.A.M is built around the philosophy that modern security systems should not o
 
 # System Architecture
 
-![System Architecture](assets/architecture.png)
+![System Architecture](assets/architecture1.png)
 
 ```plaintext
 Sensors / Cameras
