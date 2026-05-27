@@ -27,7 +27,7 @@ The project focuses on creating a scalable AI ecosystem capable of adaptive beha
 ---
 
 ## System Architecture
-
+![System architecture](assets/architecture.png)
 ```plaintext
 User
  │
@@ -127,15 +127,11 @@ python adam_project/backend/app.py
 
 ### Terminal / Backend
 
-![Backend Preview](assets/backend-preview.png)
+![Backend Preview](assets/backend.png)
 
 ### Telegram Integration
 
-![Telegram Preview](assets/telegram screenshot.png)
-
-### System Interface
-
-![Dashboard Preview](assets/dashboard-preview.png)
+![Telegram Preview](assets/telegram.png)
 
 ---
 
