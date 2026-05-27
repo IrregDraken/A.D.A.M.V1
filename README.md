@@ -131,7 +131,7 @@ python adam_project/backend/app.py
 
 ### Telegram Integration
 
-![Telegram Preview](assets/telegram-preview.png)
+![Telegram Preview](assets/telegram screenshot.png)
 
 ### System Interface
 
