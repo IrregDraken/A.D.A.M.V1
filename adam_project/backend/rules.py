@@ -1,35 +1,58 @@
-if sensor_type == "motion":
+def analyze_event(event: dict) -> dict:
 
-    if value == "1":
+    sensor_type = event.get("sensor_type")
+    value = str(event.get("value"))
+    location = event.get("location", "").lower()
+    timestamp = event.get("timestamp")
 
-        if location in [
-            "lab",
-            "server_room",
-            "office",
-            "oil_mill"
-        ]:
+    anomaly = 0
+    risk_level = "low"
+    action_taken = "log_only"
+    reason = "Normal activity"
+    confidence_score = 0.50
+    decision_basis = "No unusual condition detected"
 
-            anomaly = 1
-            risk_level = "high"
-            action_taken = "send_alert"
-            reason = "Motion detected in protected area"
-            confidence_score = 0.92
-            decision_basis = "Protected-area motion detection"
+    if sensor_type == "motion":
 
-        elif location == "hallway":
+        if value == "1":
 
-            anomaly = 0
-            risk_level = "low"
-            action_taken = "log_only"
-            reason = "Hallway motion is considered safe"
-            confidence_score = 0.78
-            decision_basis = "Expected motion zone"
+            if location in [
+                "lab",
+                "server_room",
+                "office",
+                "oil_mill"
+            ]:
 
-        else:
+                anomaly = 1
+                risk_level = "high"
+                action_taken = "send_alert"
+                reason = "Motion detected in protected area"
+                confidence_score = 0.92
+                decision_basis = "Protected-area motion detection"
 
-            anomaly = 0
-            risk_level = "low"
-            action_taken = "log_only"
-            reason = "Normal motion event"
-            confidence_score = 0.72
-            decision_basis = "Motion detected in non-sensitive context"
+            elif location == "hallway":
+
+                anomaly = 0
+                risk_level = "low"
+                action_taken = "log_only"
+                reason = "Hallway motion is considered safe"
+                confidence_score = 0.78
+                decision_basis = "Expected motion zone"
+
+            else:
+
+                anomaly = 0
+                risk_level = "low"
+                action_taken = "log_only"
+                reason = "Normal motion event"
+                confidence_score = 0.72
+                decision_basis = "Motion detected in non-sensitive context"
+
+    return {
+        "anomaly": anomaly,
+        "risk_level": risk_level,
+        "action_taken": action_taken,
+        "reason": reason,
+        "confidence_score": confidence_score,
+        "decision_basis": decision_basis
+    }
