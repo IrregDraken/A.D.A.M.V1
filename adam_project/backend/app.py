@@ -247,6 +247,26 @@ def fetch_command(device_id):
         "command": None
     })
 
+@app.route("/commands")
+def view_commands():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM commands
+        ORDER BY id DESC
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return jsonify([
+        dict(row)
+        for row in rows
+    ])
 
 if __name__ == "__main__":
     app.run(debug=True)
