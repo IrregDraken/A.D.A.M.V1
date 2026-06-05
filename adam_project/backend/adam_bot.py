@@ -13,7 +13,6 @@ from telegram_bot import (
 
 from button_handler import (
     create_command,
-    get_alert_by_id,
 )
 
 load_dotenv()
@@ -551,10 +550,20 @@ def run_bot():
                                 get_home_keyboard()
                             )
 
+                            messages = {
+                                    "acknowledge": "✅ Alert acknowledged",
+                                    "trigger_alarm": "🚨 Alarm activated",
+                                    "lockdown": "🔒 Lockdown activated",
+                                    "ignore": "❌ Alert ignored",
+                                    "override_alarm": "⚠️ Alarm override applied",
+                                    "override_lockdown": "⚠️ Lockdown override applied",
+                                    "mark_safe": "🟢 Area marked safe"
+                                }
+
                             answer_callback_query(
-                                callback_id,
-                                "Control panel loaded"
-                            )
+                                                    callback_id,
+                                                    messages.get(action, action)
+                                                )
 
                             continue
 
@@ -589,47 +598,90 @@ def run_bot():
 
                             continue
 
+                                               # ============================================
+                        # ALERT ACTION BUTTONS
                         # ============================================
-                        # ALERTS
-                        # ============================================
 
-                        elif action == "alerts":
+                        if action in [
+                            "acknowledge",
+                            "trigger_alarm",
+                            "lockdown",
+                            "ignore",
+                            "override_alarm",
+                            "override_lockdown",
+                            "mark_safe"
+                        ]:
 
-                            rows = get_recent_alerts()
+                            if action == "trigger_alarm":
 
-                            if not rows:
-
-                                alert_text = (
-                                    "🚨 ACTIVE ALERTS\n"
-                                    "━━━━━━━━━━━━━━━\n\n"
-                                    "🟢 No active threats detected."
+                                create_command(
+                                    "pir_01",
+                                    "activate_alarm"
                                 )
 
-                            else:
+                            elif action == "ignore":
 
-                                alert_text = (
-                                    "🚨 ACTIVE ALERTS\n"
-                                    "━━━━━━━━━━━━━━━\n\n"
+                                create_command(
+                                    "pir_01",
+                                    "deactivate_alarm"
                                 )
 
-                                for r in rows:
+                            elif action == "lockdown":
 
-                                    alert_text += (
-                                        f"🚨 Alert #{r['id']}\n"
-                                        f"📍 Status: {r['status'].upper()}\n"
-                                        f"🧠 Reason: {r['alert_message']}\n"
-                                        f"⚙️ Action: {r['chosen_action']}\n\n"
-                                    )
+                                create_command(
+                                    "pir_01",
+                                    "activate_alarm"
+                                )
 
-                            edit_menu_message(
-                                message_id,
-                                alert_text,
-                                get_navigation_keyboard()
+                            elif action == "override_alarm":
+
+                                create_command(
+                                    "pir_01",
+                                    "activate_alarm"
+                                )
+
+                            elif action == "override_lockdown":
+
+                                create_command(
+                                    "pir_01",
+                                    "activate_alarm"
+                                )
+
+                            elif action == "mark_safe":
+
+                                create_command(
+                                    "pir_01",
+                                    "deactivate_alarm"
+                                )
+
+                            alert_id = extract_alert_id(
+                                message_text
                             )
+
+                            if alert_id is not None:
+
+                                update_alert_status(
+                                    alert_id,
+                                    action
+                                )
+
+                                print(
+                                    f"[BUTTON] Alert #{alert_id} -> {action}"
+                                )
+
+                            messages = {
+                                "acknowledge": "✅ Alert acknowledged",
+                                "trigger_alarm": "🚨 Alarm activated",
+                                "lockdown": "🔒 Lockdown activated",
+                                "ignore": "❌ Alert ignored",
+                                "override_alarm": "⚠️ Alarm override applied",
+                                "override_lockdown": "⚠️ Lockdown override applied",
+                                "mark_safe": "🟢 Area marked safe"
+                            }
 
                             answer_callback_query(
                                 callback_id,
-                                "Alerts loaded"
+                                messages.get(action, action)
                             )
 
                             continue
