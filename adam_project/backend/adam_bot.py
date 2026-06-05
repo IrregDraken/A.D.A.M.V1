@@ -451,45 +451,6 @@ def run_bot():
 
                             continue
 
-                                
-                        # ============================================
-                        # HOME
-                        # ============================================
-
-                        if action == "home":
-
-                            edit_menu_message(
-                                message_id,
-                                (
-                                    "🤖 A.D.A.M SECURITY CORE\n"
-                                    "━━━━━━━━━━━━━━━\n\n"
-                                    "🟢 Core Status: ONLINE\n"
-                                    "⚠️ Threat Level: NORMAL\n"
-                                    "📡 Monitoring Active\n\n"
-                                    "A.D.A.M is actively supervising\n"
-                                    "your connected environment.\n\n"
-                                    "Select an interface module below."
-                                ),
-                                get_home_keyboard()
-                            )
-
-                            messages = {
-                                    "acknowledge": "✅ Alert acknowledged",
-                                    "trigger_alarm": "🚨 Alarm activated",
-                                    "lockdown": "🔒 Lockdown activated",
-                                    "ignore": "❌ Alert ignored",
-                                    "override_alarm": "⚠️ Alarm override applied",
-                                    "override_lockdown": "⚠️ Lockdown override applied",
-                                    "mark_safe": "🟢 Area marked safe"
-                                }
-
-                            answer_callback_query(
-                                                    callback_id,
-                                                    messages.get(action, action)
-                                                )
-
-                            continue
-
                         # ============================================
                         # DASHBOARD
                         # ============================================
