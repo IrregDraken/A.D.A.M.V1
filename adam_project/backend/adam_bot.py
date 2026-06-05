@@ -11,6 +11,11 @@ from telegram_bot import (
     edit_menu_message
 )
 
+from button_handler import (
+    create_command,
+    get_alert_by_id,
+)
+
 load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -446,6 +451,84 @@ def run_bot():
                             )
 
                             continue
+
+                                                # ============================================
+                        # ALERT ACTION BUTTONS
+                        # ============================================
+
+                        if action in [
+                            "acknowledge",
+                            "trigger_alarm",
+                            "lockdown",
+                            "ignore",
+                            "override_alarm",
+                            "override_lockdown",
+                            "mark_safe"
+                        ]:
+
+                            # Queue hardware commands
+
+                            if action == "trigger_alarm":
+
+                                create_command(
+                                    "pir_01",
+                                    "activate_alarm"
+                                )
+
+                            elif action == "ignore":
+
+                                create_command(
+                                    "pir_01",
+                                    "deactivate_alarm"
+                                )
+
+                            elif action == "lockdown":
+
+                                create_command(
+                                    "pir_01",
+                                    "activate_alarm"
+                                )
+
+                            elif action == "override_alarm":
+
+                                create_command(
+                                    "pir_01",
+                                    "activate_alarm"
+                                )
+
+                            elif action == "override_lockdown":
+
+                                create_command(
+                                    "pir_01",
+                                    "activate_alarm"
+                                )
+
+                            elif action == "mark_safe":
+
+                                create_command(
+                                    "pir_01",
+                                    "deactivate_alarm"
+                                )
+
+                            alert_id = extract_alert_id(
+                                message_text
+                            )
+
+                            if alert_id is not None:
+
+                                result = update_alert_status(
+                                 alert_id,
+                                  action
+                                )
+
+                                print(
+                                    f"[BUTTON] Alert #{alert_id} -> {action}"
+                                )
+                                
+                                answer_callback_query(
+                                    callback_id,
+                                    f"Action: {action}"
+                                )
 
                         # ============================================
                         # HOME
