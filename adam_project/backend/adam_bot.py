@@ -524,11 +524,6 @@ def run_bot():
                                     f"[BUTTON] Alert #{alert_id} -> {action}"
                                 )
                                 
-                                answer_callback_query(
-                                    callback_id,
-                                    f"Action: {action}"
-                                )
-
                         # ============================================
                         # HOME
                         # ============================================
